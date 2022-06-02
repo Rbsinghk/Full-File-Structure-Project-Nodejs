@@ -9,7 +9,7 @@ const port = process.env.PORT;
 app.use(express.json());
 app.use(cookieParser())
 app.use(router);
-// app.use(express.static("./uploads"))
+app.use(express.static("./uploads"))
 app.use((req, res, next) => {
     const error = new Error('Not Found');
     error.status = 404;

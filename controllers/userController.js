@@ -2,6 +2,7 @@ const userSchema = require('../models/userSchema')
 const imageSchema = require('../models/userProfileSchema')
 const otpSchema = require('../models/otpSchema')
 const multer = require('multer')
+const path = require('path')
 const nodemailer = require("nodemailer");
 
 const userAdd = async (req, res) => {
@@ -81,7 +82,10 @@ const uploadImage = (req, res) => {
             })
             // console.log(newImage)
             newImage.save()
-                .then(() => res.send(`Successfully Upload`))
+                .then(() => res.json({
+                    message:'Success',
+                    file: `uploads/${req.file.filename}`
+                }))
                 .catch((err) => console.log(err))
         }
     })
