@@ -1,5 +1,5 @@
 const express = require('express');
-const auth = require('../middleware/authorise')
+const verifytoken = require('../middleware/authorise')
 const userCtrl = require('../controllers/userController')
 const router = new express.Router();
 
@@ -10,9 +10,16 @@ router.post('/login', userCtrl.userLogin)
 router.post('/emailCode', userCtrl.emailCode)
 router.post('/changePass', userCtrl.changepassword)
 
-router.get('/',auth,async(req,res)=>{
+router.get('/get',verifytoken,async(req,res)=>{
     try {
         res.send('Hello World')
+    } catch (error) {
+        res.send('Invalid Role')
+    }
+})
+router.get('/getAdmin',verifytoken,async(req,res)=>{
+    try {
+        res.send('Hello Admin')
     } catch (error) {
         res.send('Invalid Role')
     }

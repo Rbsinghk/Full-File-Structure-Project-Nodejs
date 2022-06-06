@@ -5,6 +5,7 @@ const multer = require('multer')
 const path = require('path')
 const nodemailer = require("nodemailer");
 
+
 const userAdd = async (req, res) => {
     try {
         const register = new userSchema(req.body);
@@ -50,7 +51,8 @@ const userAdd = async (req, res) => {
 const userGet = async (req, res) => {
     try {
         const get = await userSchema.find({})
-        res.send(get)
+        res.send({message:"This is the Data",data:get
+    })
     } catch (error) {
         res.send(error)
     }
@@ -78,7 +80,7 @@ const uploadImage = (req, res) => {
                     data: req.file.filename,
                     contentType: 'image/png'
                 },
-                name: req.body.name
+                name: req.file.filename
             })
             // console.log(newImage)
             newImage.save()
@@ -101,6 +103,7 @@ const userLogin = async (req, res) => {
             res.status(201).send(`Login Successfully & ${token} `)
         } else {
             res.send("Invalid User1")
+            
         }
     } catch (error) {
         res.status(400).send("Invalid User")
